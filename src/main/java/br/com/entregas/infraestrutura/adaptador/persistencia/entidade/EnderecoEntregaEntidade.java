@@ -4,26 +4,26 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
-public class EnderecoEntregaEntidade {
-    
-    @Column(nullable = false)
+public class EnderecoEntregaEntidade 
+{    
+    @Column( nullable = false )
     private String logradouro;
     
-    @Column(nullable = false)
+    @Column( nullable = false )
     private String numero;
     
     private String complemento;
     
-    @Column(nullable = false)
+    @Column( nullable = false )
     private String bairro;
     
-    @Column(nullable = false)
+    @Column( nullable = false )
     private String cidade;
     
-    @Column(nullable = false, length = 2)
+    @Column( nullable = false, length = 2 )
     private String estado;
     
-    @Column(nullable = false, length = 8)
+    @Column( nullable = false, length = 8 )
     private String cep;
 
 	public String getLogradouro( ) 

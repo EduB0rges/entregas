@@ -34,7 +34,7 @@ public record EntregaInput
             LocalDateTime dataLimiteEntrega,
             String nomeCliente,
             String cpfCliente,
-            EnderecoInput endereco) {
+            EnderecoInput endereco ) {
         return new EntregaInput(
             id,
             quantidadePacotes,

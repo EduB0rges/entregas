@@ -18,43 +18,45 @@ public class EntregaMapper
         EnderecoEntregaEntidade enderecoEntidade = entidade.getEnderecoEntrega( );
         
         EnderecoOutput endereco = new EnderecoOutput(
-            enderecoEntidade.getLogradouro(),
-            enderecoEntidade.getNumero(),
-            enderecoEntidade.getComplemento(),
-            enderecoEntidade.getBairro(),
-            enderecoEntidade.getCidade(),
-            enderecoEntidade.getEstado(),
-            enderecoEntidade.getCep()
+            enderecoEntidade.getLogradouro( ),
+            enderecoEntidade.getNumero( ),
+            enderecoEntidade.getComplemento( ),
+            enderecoEntidade.getBairro( ),
+            enderecoEntidade.getCidade( ),
+            enderecoEntidade.getEstado( ),
+            enderecoEntidade.getCep( )
         );
         
         return new EntregaOutput(
-            entidade.getId().toString(),
-            entidade.getQuantidadePacotes(),
-            entidade.getDataLimiteEntrega(),
-            entidade.getNomeCliente(),
-            entidade.getCpfCliente(),
+            entidade.getId( ).toString( ),
+            entidade.getQuantidadePacotes( ),
+            entidade.getDataLimiteEntrega( ),
+            entidade.getNomeCliente( ),
+            entidade.getCpfCliente( ),
             endereco            
         );
     }
     
     public EntregaEntidade paraEntidade( EntregaInput entrega ) 
 	{
-		EnderecoEntregaEntidade enderecoEntidade = new EnderecoEntregaEntidade();
-		enderecoEntidade.setLogradouro( entrega.endereco().logradouro() );
-		enderecoEntidade.setNumero( entrega.endereco().numero() );
-		enderecoEntidade.setComplemento( entrega.endereco().complemento() );
-		enderecoEntidade.setBairro( entrega.endereco().bairro() );
-		enderecoEntidade.setCidade( entrega.endereco().cidade() );
-		enderecoEntidade.setEstado( entrega.endereco().estado() );
-		enderecoEntidade.setCep( entrega.endereco().cep() );
+		EnderecoEntregaEntidade enderecoEntidade = new EnderecoEntregaEntidade( );
 		
-		EntregaEntidade entidade = new EntregaEntidade();
-		entidade.setId( entrega.id() == null ? UUID.randomUUID() : UUID.fromString( entrega.id() ) );
-		entidade.setQuantidadePacotes( entrega.quantidadePacotes() );
-		entidade.setNomeCliente( entrega.nomeCliente() );
-		entidade.setCpfCliente( entrega.cpfCliente() );
-		entidade.setDataLimiteEntrega( entrega.dataLimiteEntrega() );
-		entidade.setEnderecoEntrega( enderecoEntidade );
+		enderecoEntidade.setLogradouro ( entrega.endereco( ).logradouro( )  );
+		enderecoEntidade.setNumero     ( entrega.endereco( ).numero( )      );
+		enderecoEntidade.setComplemento( entrega.endereco( ).complemento( ) );
+		enderecoEntidade.setBairro     ( entrega.endereco( ).bairro( )      );
+		enderecoEntidade.setCidade     ( entrega.endereco( ).cidade( )      );
+		enderecoEntidade.setEstado     ( entrega.endereco( ).estado( )      );
+		enderecoEntidade.setCep        ( entrega.endereco( ).cep( )         );
+		
+		EntregaEntidade entidade = new EntregaEntidade( );
+		
+		entidade.setId               ( entrega.id( ) == null ? UUID.randomUUID( ) : UUID.fromString( entrega.id( ) ) );
+		entidade.setQuantidadePacotes( entrega.quantidadePacotes( ) );
+		entidade.setNomeCliente      ( entrega.nomeCliente( )       );
+		entidade.setCpfCliente       ( entrega.cpfCliente( )        );
+		entidade.setDataLimiteEntrega( entrega.dataLimiteEntrega( ) );
+		entidade.setEnderecoEntrega  ( enderecoEntidade             );
 		
 		return entidade;
 	}

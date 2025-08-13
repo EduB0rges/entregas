@@ -26,44 +26,7 @@ public record EnderecoInput
     @NotBlank(message = "O CEP é obrigatório")
     @Pattern(regexp = "\\d{8}", message = "O CEP deve conter 8 dígitos numéricos")
     String cep
-) {
-    // Construtor para criar um endereço
-    public static EnderecoInput novo(
-            String logradouro,
-            String numero,
-            String complemento,
-            String bairro,
-            String cidade,
-            String estado,
-            String cep) {
-        return new EnderecoInput(
-            logradouro,
-            numero,
-            complemento,
-            bairro,
-            cidade,
-            estado,
-            cep
-        );
-    }
-
-    // Método para atualizar um endereço 
-    public EnderecoInput atualizar(
-            String logradouro,
-            String numero,
-            String complemento,
-            String bairro,
-            String cidade,
-            String estado,
-            String cep) {
-        return new EnderecoInput(
-            logradouro,
-            numero,
-            complemento,
-            bairro,
-            cidade,
-            estado,
-            cep
-        );
-    }
+) 
+{
+   
 }
