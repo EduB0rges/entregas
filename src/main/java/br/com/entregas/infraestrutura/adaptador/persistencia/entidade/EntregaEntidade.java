@@ -21,9 +21,6 @@ public class EntregaEntidade
     
     @Column(nullable = false)
     private String cpfCliente;
-        
-    @Column(nullable = false)
-    private LocalDateTime dataPedido;
     
     @Column(nullable = false)
     private LocalDateTime dataLimiteEntrega;
@@ -31,59 +28,63 @@ public class EntregaEntidade
     @Column(nullable = false)
     private EnderecoEntregaEntidade enderecoEntrega;
 
-	public UUID getId( ) {
+	public UUID getId( ) 
+	{
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId( UUID id ) 
+	{
 		this.id = id;
 	}
 
-	public Integer getQuantidadePacotes() {
+	public Integer getQuantidadePacotes( ) 
+	{
 		return quantidadePacotes;
 	}
 
-	public void setQuantidadePacotes(Integer quantidadePacotes) {
+	public void setQuantidadePacotes( Integer quantidadePacotes ) 
+	{
 		this.quantidadePacotes = quantidadePacotes;
 	}
 
-	public String getNomeCliente() {
+	public String getNomeCliente( ) 
+	{
 		return nomeCliente;
 	}
 
-	public void setNomeCliente(String nomeCliente) {
+	public void setNomeCliente( String nomeCliente ) 
+	{
 		this.nomeCliente = nomeCliente;
 	}
 
-	public String getCpfCliente() {
+	public String getCpfCliente( ) 
+	{
 		return cpfCliente;
 	}
 
-	public void setCpfCliente(String cpfCliente) {
+	public void setCpfCliente( String cpfCliente ) 
+	{
 		this.cpfCliente = cpfCliente;
 	}
 
-	public LocalDateTime getDataPedido() {
-		return dataPedido;
-	}
-
-	public void setDataPedido(LocalDateTime dataPedido) {
-		this.dataPedido = dataPedido;
-	}
-
-	public LocalDateTime getDataLimiteEntrega() {
+	public LocalDateTime getDataLimiteEntrega( ) 
+	{
 		return dataLimiteEntrega;
 	}
 
-	public void setDataLimiteEntrega(LocalDateTime dataLimiteEntrega) {
+	public void setDataLimiteEntrega( LocalDateTime dataLimiteEntrega ) 
+	{
 		this.dataLimiteEntrega = dataLimiteEntrega;
 	}
 
-	public EnderecoEntregaEntidade getEnderecoEntrega() {
+	public EnderecoEntregaEntidade getEnderecoEntrega( ) 
+	{
 		return enderecoEntrega;
 	}
 
-	public void setEnderecoEntrega(EnderecoEntregaEntidade enderecoEntrega) {
+	public void setEnderecoEntrega( EnderecoEntregaEntidade enderecoEntrega ) 
+	{
 		this.enderecoEntrega = enderecoEntrega;
 	}
 }

@@ -1,15 +1,15 @@
 package br.com.entregas.dominio.modelo;
 
-import jakarta.validation.constraints.NotNull;
+import java.time.LocalDateTime;
+
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Future;
-import java.time.LocalDateTime;
-import java.util.UUID;
+import jakarta.validation.constraints.NotNull;
 
 public record EntregaInput
 (
-    UUID id,
+    String id,
     
     @NotNull( message = "A quantidade de pacotes é obrigatória" )
     @Min( value = 1, message = "A quantidade de pacotes deve ser maior que zero" )
@@ -29,14 +29,14 @@ public record EntregaInput
     EnderecoInput endereco
 ) {
     // Construtor compacto para criar nova entrega
-    public EntregaInput nova(
+    public EntregaInput nova( String id,
             Integer quantidadePacotes,
             LocalDateTime dataLimiteEntrega,
             String nomeCliente,
             String cpfCliente,
             EnderecoInput endereco) {
         return new EntregaInput(
-            UUID.randomUUID( ),
+            id,
             quantidadePacotes,
             dataLimiteEntrega,
             nomeCliente,

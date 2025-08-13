@@ -2,6 +2,7 @@ package br.com.entregas.aplicacao.servico;
 
 import java.util.UUID;
 
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,9 +25,23 @@ public class EntregaPortaServico implements EntregaPorta
 	
 	@Override
 	@Cacheable(value = "entregasCache", key = "#id")
-	public EntregaOutput buscarPorId( UUID id ) 
+	public EntregaOutput buscarPorId( String id ) 
 	{
-	    return entregaPersistencia.buscarPorId( id )
+		UUID idUuid = null;
+		
+		try
+		{
+		    idUuid = UUID.fromString( id );
+		}
+		catch ( IllegalArgumentException e )
+		{
+			throw new EntregaNaoEncontradaException( "ID inválido: " + id );
+		}
+		
+		if ( idUuid == null ) 
+			throw new EntregaNaoEncontradaException( "ID inválido: " + id );
+		
+	    return entregaPersistencia.buscarPorId( idUuid )
 	            .orElseThrow(() -> new EntregaNaoEncontradaException( id ) );
 	}
 	
@@ -34,12 +49,64 @@ public class EntregaPortaServico implements EntregaPorta
     @Transactional
     public EntregaOutput cadastrar( EntregaInput entrega ) 
 	{
-        entrega.nova( entrega.quantidadePacotes( ), 
+        EntregaInput input = entrega.nova( entrega.id(),
+        		      entrega.quantidadePacotes( ), 
         		      entrega.dataLimiteEntrega( ),
         		      entrega.nomeCliente( ),
         		      entrega.cpfCliente( ),
         		      entrega.endereco( ) );
         
-        return entregaPersistencia.salvar( entrega );
+        return entregaPersistencia.salvar( input );
+    }
+	
+	@Override
+    @Transactional
+    @CacheEvict(value = "entregas", key = "#id")
+    public EntregaOutput atualizar( String id, EntregaInput entrega ) 
+    {
+		UUID idUuid = null;
+		
+		try
+		{
+			idUuid = UUID.fromString( id );
+		}
+		catch ( IllegalArgumentException e )
+		{
+			throw new EntregaNaoEncontradaException( "ID inválido: " + id );
+		}
+		
+		if ( idUuid == null ) 
+			throw new EntregaNaoEncontradaException( "ID inválido: " + id );
+				
+        if( !entregaPersistencia.existePorId( idUuid ) ) 
+            throw new EntregaNaoEncontradaException( idUuid.toString() );
+
+        EntregaInput input = entrega.nova( id, 
+        	  entrega.quantidadePacotes( ), 
+  		      entrega.dataLimiteEntrega( ),
+  		      entrega.nomeCliente( ),
+  		      entrega.cpfCliente( ),
+  		      entrega.endereco( ) );
+        
+        return entregaPersistencia.salvar( input );
+    }
+
+    @Override
+    @Transactional
+    @CacheEvict(value = "entregas", key = "#id")
+    public void deletar( String id ) 
+    {
+    	UUID idUuid = null;
+    	
+    	try
+		{
+			idUuid = UUID.fromString( id );
+		}
+		catch ( IllegalArgumentException e )
+		{
+			throw new EntregaNaoEncontradaException( "ID inválido: " + id );
+		}
+        
+        entregaPersistencia.deletar( idUuid );
     }
 }

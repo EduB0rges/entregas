@@ -11,4 +11,8 @@ public interface EntregaPersistenciaPorta
     Optional<EntregaOutput> buscarPorId( UUID id );
     
     EntregaOutput salvar( EntregaInput entrega );
+    
+    void deletar( UUID id );
+
+    boolean existePorId( UUID id );
 }

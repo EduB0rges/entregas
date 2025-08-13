@@ -27,7 +27,7 @@ public record EnderecoInput
     @Pattern(regexp = "\\d{8}", message = "O CEP deve conter 8 dígitos numéricos")
     String cep
 ) {
-    // Construtor compacto para criar novo endereço
+    // Construtor para criar um endereço
     public static EnderecoInput novo(
             String logradouro,
             String numero,
@@ -47,7 +47,7 @@ public record EnderecoInput
         );
     }
 
-    // Método para atualizar um endereço existente
+    // Método para atualizar um endereço 
     public EnderecoInput atualizar(
             String logradouro,
             String numero,

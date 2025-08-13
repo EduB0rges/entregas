@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import br.com.entregas.dominio.modelo.EntregaInput;
 import br.com.entregas.dominio.modelo.EntregaOutput;
 import br.com.entregas.dominio.porta.EntregaPersistenciaPorta;
+import br.com.entregas.infraestrutura.adaptador.persistencia.entidade.EntregaEntidade;
 import br.com.entregas.infraestrutura.adaptador.persistencia.mapper.EntregaMapper;
 import br.com.entregas.infraestrutura.adaptador.persistencia.repositorio.EntregaJpaRepositorio;
 
@@ -33,7 +34,22 @@ public class EntregaRepositorioAdaptador implements EntregaPersistenciaPorta
 	@Override
 	public EntregaOutput salvar( EntregaInput entrega ) 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		EntregaEntidade entidade = entregaMapper.paraEntidade( entrega );
+		
+		entidade = entregaRepository.save( entidade );
+		
+		return entregaMapper.paraOutput( entidade );
 	}
+	
+	@Override
+    public void deletar( UUID id ) 
+	{
+		entregaRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean existePorId( UUID id ) 
+    {    	
+        return entregaRepository.existsById( id );
+    }
 }
