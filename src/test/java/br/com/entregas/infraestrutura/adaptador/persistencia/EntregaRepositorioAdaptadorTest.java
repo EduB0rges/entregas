@@ -1,21 +1,29 @@
 package br.com.entregas.infraestrutura.adaptador.persistencia;
 
-import br.com.entregas.dominio.modelo.EntregaInput;
-import br.com.entregas.dominio.modelo.EntregaOutput;
-import br.com.entregas.infraestrutura.adaptador.persistencia.entidade.EntregaEntidade;
-import br.com.entregas.infraestrutura.adaptador.persistencia.mapper.EntregaMapper;
-import br.com.entregas.infraestrutura.adaptador.persistencia.repositorio.EntregaJpaRepositorio;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.Optional;
+import java.util.UUID;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Optional;
-import java.util.UUID;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import br.com.entregas.dominio.modelo.EntregaInput;
+import br.com.entregas.dominio.modelo.EntregaOutput;
+import br.com.entregas.infraestrutura.adaptador.persistencia.entidade.EntregaEntidade;
+import br.com.entregas.infraestrutura.adaptador.persistencia.mapper.EntregaMapper;
+import br.com.entregas.infraestrutura.adaptador.persistencia.repositorio.EntregaJpaRepositorio;
 
 class EntregaRepositorioAdaptadorTest 
 {
