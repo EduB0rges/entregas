@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    container_name: postgres
+    environment:
+      POSTGRES_DB: entregas
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123@mudar
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - spring-net
+
+  app:
+    build: .
+    container_name: entregas
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: entregas
+      DB_USER: postgres
+      DB_PASSWORD: 123@mudar
+    ports:
+      - "8080:8080"
+    networks:
+      - spring-net
+
+volumes:
+  pgdata:
+
+networks:
+  spring-net:
