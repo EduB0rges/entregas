@@ -2,6 +2,8 @@ package br.com.entregas.aplicacao.servico;
 
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ import br.com.entregas.infraestrutura.excecao.EntregaNaoEncontradaException;
 @Service
 public class EntregaPortaServico implements EntregaPorta
 {
+	private static final Logger LOGGER = LoggerFactory.getLogger( EntregaPortaServico.class );
+	
     private final EntregaRepositorioAdaptador entregaPersistencia;
     
     public EntregaPortaServico( EntregaRepositorioAdaptador entregaPersistencia ) 
@@ -27,6 +31,8 @@ public class EntregaPortaServico implements EntregaPorta
 	@Cacheable(value = "entregasCache", key = "#id")
 	public EntregaOutput buscarPorId( String id ) 
 	{
+		LOGGER.debug( "Buscando entrega com ID: {}", id );
+		
 		UUID idUuid = null;
 		
 		try
@@ -42,13 +48,15 @@ public class EntregaPortaServico implements EntregaPorta
 			throw new EntregaNaoEncontradaException( "ID inválido: " + id );
 		
 	    return entregaPersistencia.buscarPorId( idUuid )
-	            .orElseThrow(() -> new EntregaNaoEncontradaException( id ) );
+	            .orElseThrow( ( ) -> new EntregaNaoEncontradaException( id ) );
 	}
 	
 	@Override
     @Transactional
     public EntregaOutput cadastrar( EntregaInput entrega ) 
 	{
+		LOGGER.debug( "Cadastrando nova entrega: {}", entrega );
+		
         EntregaInput input = entrega.nova( entrega.id(),
         		      entrega.quantidadePacotes( ), 
         		      entrega.dataLimiteEntrega( ),
@@ -64,6 +72,8 @@ public class EntregaPortaServico implements EntregaPorta
     @CacheEvict(value = "entregas", key = "#id")
     public EntregaOutput atualizar( String id, EntregaInput entrega ) 
     {
+		LOGGER.debug( "Atualizando entrega com ID: {}, dados: {}", id, entrega );
+		
 		UUID idUuid = null;
 		
 		try
@@ -96,6 +106,8 @@ public class EntregaPortaServico implements EntregaPorta
     @CacheEvict(value = "entregas", key = "#id")
     public void deletar( String id ) 
     {
+    	LOGGER.debug( "Deletando entrega com ID: {}", id );
+    	
     	UUID idUuid = null;
     	
     	try

@@ -1,4 +1,3 @@
-// SecurityConfig.java
 package br.com.entregas.infraestrutura.configuracao;
 
 import org.springframework.context.annotation.Bean;
@@ -28,7 +27,7 @@ public class SecurityConfig
         return http
                 .csrf( ).disable( )
                 .authorizeHttpRequests( )
-                .requestMatchers( "/api/auth/**" ).permitAll( )
+                .requestMatchers( "/auth/login/**" ).permitAll( )
                 .anyRequest( ).authenticated( )
                 .and( )
                 .sessionManagement( )

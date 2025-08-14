@@ -28,7 +28,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter
             throws ServletException, IOException 
     {
 
-        String authHeader = request.getHeader("Authorization");
+        String authHeader = request.getHeader( "Authorization" );
         String token      = null;
         String username   = null;
 
@@ -44,11 +44,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter
             {
                 UsernamePasswordAuthenticationToken authToken =
                         new UsernamePasswordAuthenticationToken( username, null, jwtUtil.getAuthorities( token ) );
+                
                 authToken.setDetails( new WebAuthenticationDetailsSource( ).buildDetails( request ) );
+                
                 SecurityContextHolder.getContext( ).setAuthentication( authToken );
             }
         }
 
-        filterChain.doFilter(request, response);
+        filterChain.doFilter( request, response );
     }
 }

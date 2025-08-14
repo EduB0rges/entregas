@@ -1,13 +1,14 @@
-package br.com.api.enregas;
+package br.com.api.entregas;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class EnregasApplicationTests {
-
+class EntregasApplicationTests 
+{
 	@Test
-	void contextLoads() {
+	void contextLoads( ) 
+	{
 	}
 
 }
